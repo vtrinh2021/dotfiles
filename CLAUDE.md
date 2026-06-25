@@ -1,5 +1,13 @@
 ## Handoff Protocol
 
+At the start of every session, run:
+
+```
+git pull
+```
+
+This syncs any changes made on another device before work begins.
+
 Before any /clear command, session end, or when the user says "wrap up" or "we're done":
 
 Write a handoff.md file in the project root with this exact structure:
