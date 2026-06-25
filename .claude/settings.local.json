@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(claude mcp *)",
+      "Bash(npx -y @shopify/dev-mcp@latest --version)",
+      "Bash(npx --version)",
+      "Bash(grep -o '.\\\\{0,100\\\\}mcpServers.\\\\{0,100\\\\}' ~/.vscode/extensions/anthropic.claude-code-2.1.117-darwin-arm64/extension.js)",
+      "Bash(grep -o '.\\\\{0,100\\\\}mcp_servers\\\\|mcpServer.\\\\{0,100\\\\}' ~/.vscode/extensions/anthropic.claude-code-2.1.117-darwin-arm64/extension.js)",
+      "Bash(npm show *)",
+      "Bash(~/.vscode/extensions/anthropic.claude-code-2.1.117-darwin-arm64/resources/native-binary/claude mcp *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/skills/impeccable/scripts/hook.mjs\"",
+            "timeout": 5,
+            "statusMessage": "Checking UI changes"
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Impeccable design detector: runs after Edit/Write/MultiEdit on UI files and surfaces findings as system reminders."
+}

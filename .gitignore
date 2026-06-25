@@ -1,0 +1,25 @@
+# Ignore everything by default
+*
+
+# Always exclude compiled bytecode
+**/__pycache__/
+**/*.pyc
+
+# Always track these
+!.gitignore
+!CLAUDE.md
+
+# .claude config (selective — exclude sensitive files)
+!.claude/
+!.claude/CLAUDE.md
+!.claude/settings.local.json
+.claude/settings.json
+!.claude/skills/
+!.claude/skills/**
+
+# .vscode (only mcp config)
+!.vscode/
+!.vscode/mcp.json
+
+# Handoff files (generated on wrap-up)
+!handoff.md
