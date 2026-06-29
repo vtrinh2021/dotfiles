@@ -1,48 +1,46 @@
 # Handoff
 
 ## Goal
-Design the BloomFemme Shopify store (theme #162986098909) — elevate visual quality, add hero video support, implement VAÉ branding, and make the homepage feel premium and conversion-ready.
+Fix product naming and count across the entire store, and conditionally show the free digital guide notice only for bundle tiers (not singular orders).
 
 ## Current State
-All homepage sections are live and pushed to Shopify. Dev server runs at http://127.0.0.1:9292. Theme is unpublished (preview only). The page is visually complete but not yet wired to real products — bundle cards have placeholder variant IDs.
+All changes are live and verified on the store (theme is published at voltexbox.com / 3e69v2-8h.myshopify.com, theme ID 162986098909).
 
-**Working:**
-- Hero section — full redesign with video support, ambient orb background, 4/5 aspect ratio media panel, pause/play toggle, prefers-reduced-motion compliance
-- Featured bundle tier card — deep rose inverse card (dark bg, white text), visually dominant
-- Guarantee banner — deep rose full-bleed section, gold CTA button
-- Dividers removed across all sections (was a major AI tell)
-- VAÉ logos — black in header, white in footer (both PNG assets uploaded to Shopify)
-- Favicon — all 4 sizes (16, 32, 48, 180px) wired in theme.liquid
-- Footer — white VAÉ logo image replacing text
+**Done this session:**
+- "Herbal Steam Pads" → "Herbal Menstrual Pads" across all sections
+- "4 ct" → "20 ct" per pack; tier 3 (Goddess Bundle) shows "2× 20 ct"
+- "Suppositories" → "Supplements" everywhere (bundles, product hero, FAQ, testimonials)
+- FAQ answer for pH Guardian rewritten — removed "inserted vaginally" and "boric acid" clinical language
+- Free digital guide notice now conditional: shows for tier 2 and tier 3, hidden when tier 1 is selected
+- Dev server restarted (was stuck on a temp file upload error after push to live theme)
 
-**Not yet done (requires merchant action):**
-- Hero video not uploaded yet — user needs to upload MP4 to Shopify Files and paste URL into theme editor > Hero Banner > "Hero video URL"
-- Hero image not set — needs to be uploaded in theme editor as fallback/poster
-- Bundle tier variant IDs — user needs to create 3 products in Shopify admin, get variant IDs, paste into Bundle Tiers section settings
-- Products not created yet — Herbal Steam Pads, pH Guardian Suppositories, On-The-Go Wipes
+**Still pending / user action needed:**
+- Pages feel short — user asked to add more content sections (deferred, discussed options: ingredient spotlight, wellness timeline, press strip)
+- Hero video/image still not uploaded (user needs to add via Shopify Files → theme editor)
+- Bundle variant IDs still not set (user needs to create 3 products in Shopify admin and paste IDs)
 
 ## Files Being Edited
-- `bloomfemme-theme/sections/bf-hero.liquid` — complete rewrite: video support, ambient bg, new layout, schema
-- `bloomfemme-theme/sections/bf-bundle-tiers.liquid` — existing structure kept, CSS drives the featured card redesign
-- `bloomfemme-theme/sections/bf-guarantee.liquid` — CTA button changed to btn--gold for dark bg visibility
-- `bloomfemme-theme/sections/footer.liquid` — text logo replaced with white VAÉ PNG image
-- `bloomfemme-theme/assets/theme.css` — dividers hidden, featured card inverse styles, guarantee banner dark bg, footer logo CSS
-- `bloomfemme-theme/layout/theme.liquid` — favicon link tags added
-- `bloomfemme-theme/sections/header.liquid` — black VAÉ logo image (done in prior session)
+- `sections/bf-bundle-tiers.liquid` — product name, count, suppositories → supplements, conditional guide notice
+- `sections/bf-product-hero.liquid` — product name, count, suppositories → supplements in value stacks
+- `sections/bf-hero.liquid` — subheadline default and alt text: steam → menstrual
+- `sections/footer.liquid` — nav link text
+- `sections/bf-about-content.liquid` — story paragraph
+- `sections/bf-faq-accordion.liquid` — subheading, FAQ question + answer rewritten
+- `sections/bf-testimonials.liquid` — testimonial quote
+- `assets/bundle-selector.js` — added guide notice show/hide logic on tier selection
 
 ## What Failed
-- Full-page Playwright screenshots timeout due to Google Fonts loading — use viewport-only or browser_evaluate for verification instead
-- `shopify auth login --store` flag does not exist — just run `shopify auth login` with no flags
+- Dev server showed "Failed to Upload Theme Files" after pushing to the now-live theme — a temp file naming conflict in Shopify CLI. Fixed by killing and restarting the dev server.
+- Push to live theme requires `--allow-live` flag (previously unpublished, now published).
 
 ## Next Step
-Upload a hero video or image in Shopify admin (Shopify Files), then create the 3 products and wire their variant IDs into the Bundle Tiers section settings so the Add to Cart flow is actually functional.
+Add more content to the homepage — best candidate is an **ingredients / herb spotlight section** showing key botanicals (mugwort, lavender, calendula) with their benefits. This fits the premium brand tone and builds trust with skeptical first-time buyers.
 
 ## Context
 - Dev server command: `env -u SHOPIFY_TOKEN -u SHOPIFY_CLI_THEME_TOKEN shopify theme dev --store 3e69v2-8h -t 162986098909 --port 9292`
-- Admin API token for curl: stored separately — do NOT put in settings.json (check prior session or generate new shpat in Shopify admin > Apps > API credentials)
-- SHOPIFY_TOKEN must NOT be in ~/.claude/settings.json — it breaks the dev server proxy with 401
-- Store: 3e69v2-8h.myshopify.com / voltexbox.com, theme ID 162986098909 (BloomFemme, unpublished)
-- Brand: VAÉ (store shows as "Voltex" in Shopify admin — this is fine, ignore it)
-- Return policy: unopened/sealed packaging only, within 30 days of delivery
-- Shipping: 6–9 business days (no free shipping committed anywhere)
-- Logo files: bloomfemme-theme/assets/logo-black.png (header), bloomfemme-theme/assets/logo-white.png (footer)
+- Theme is now LIVE (published) — all pushes need `--allow-live` flag
+- Store: 3e69v2-8h.myshopify.com / voltexbox.com, theme ID 162986098909
+- Brand: VAÉ
+- Return policy: unopened/sealed only, within 30 days
+- Shipping: 6–9 business days (no free shipping)
+- Logo files: assets/logo-black.png (header), assets/logo-white.png (footer)
