@@ -1,46 +1,50 @@
-# Handoff
+﻿# Handoff
 
 ## Goal
-Fix product naming and count across the entire store, and conditionally show the free digital guide notice only for bundle tiers (not singular orders).
+Homepage rebuild for VAÃ‰ (voltexbox.com) to convert first-time buyers â€” 7-section structure with alternating rose-deep/pink-pale backgrounds, tighter social proof, no carousel.
 
 ## Current State
-All changes are live and verified on the store (theme is published at voltexbox.com / 3e69v2-8h.myshopify.com, theme ID 162986098909).
+**Homepage is fully live and working.** All 7 sections in order:
+1. `bf-hero` â€” rose-deep, script eyebrow, hero image, gold CTA
+2. `bf-proof-strip` â€” pink-pale, 3-column editorial testimonials, SVG stars, pink column dividers
+3. `bf-bundles` (bf-bundle-tiers) â€” bundle picker, pre-selects Complete Feminine Reset
+4. `bf-how-it-works` â€” pink-pale, no eyebrow, 3 steps + skeptic note
+5. `bf-homepage-herbs` â€” rose-deep, "Inside Every Pad", 5-herb grid
+6. `bf-guarantee` â€” pink-pale, no script eyebrow (conditional wrapper added)
+7. `bf-homepage-cta` â€” rose-deep, italic Alegreya heading, gold CTA
 
-**Done this session:**
-- "Herbal Steam Pads" → "Herbal Menstrual Pads" across all sections
-- "4 ct" → "20 ct" per pack; tier 3 (Goddess Bundle) shows "2× 20 ct"
-- "Suppositories" → "Supplements" everywhere (bundles, product hero, FAQ, testimonials)
-- FAQ answer for pH Guardian rewritten — removed "inserted vaginally" and "boric acid" clinical language
-- Free digital guide notice now conditional: shows for tier 2 and tier 3, hidden when tier 1 is selected
-- Dev server restarted (was stuck on a temp file upload error after push to live theme)
+**Product page** has `bf-product-ingredients` section with TCM herb deep-dive â€” also live and clean.
 
-**Still pending / user action needed:**
-- Pages feel short — user asked to add more content sections (deferred, discussed options: ingredient spotlight, wellness timeline, press strip)
-- Hero video/image still not uploaded (user needs to add via Shopify Files → theme editor)
-- Bundle variant IDs still not set (user needs to create 3 products in Shopify admin and paste IDs)
+**Encoding bugs fixed across the whole store:**
+- Announcement bar emoji `??` â†’ SVG leaf icon
+- Proof strip stars `?????` (corrupted Unicode) â†’ SVG stars in `inline-flex` wrapper
+- Product page Chinese characters `???` â†’ romanized pinyin (Xue Lian Hua, Bai Zhi, Ding Xiang, Man Shan Hong, Bai Xian Pi)
 
 ## Files Being Edited
-- `sections/bf-bundle-tiers.liquid` — product name, count, suppositories → supplements, conditional guide notice
-- `sections/bf-product-hero.liquid` — product name, count, suppositories → supplements in value stacks
-- `sections/bf-hero.liquid` — subheadline default and alt text: steam → menstrual
-- `sections/footer.liquid` — nav link text
-- `sections/bf-about-content.liquid` — story paragraph
-- `sections/bf-faq-accordion.liquid` — subheading, FAQ question + answer rewritten
-- `sections/bf-testimonials.liquid` — testimonial quote
-- `assets/bundle-selector.js` — added guide notice show/hide logic on tier selection
+- `sections/bf-proof-strip.liquid` â€” new section: 3-col editorial testimonials, SVG stars, pink dividers
+- `sections/bf-homepage-herbs.liquid` â€” new section: 5-herb strip on rose-deep
+- `sections/bf-homepage-cta.liquid` â€” new section: final CTA on rose-deep
+- `sections/bf-how-it-works.liquid` â€” updated: pink-pale bg, conditional eyebrow wrapper, `{% style %}`
+- `sections/bf-guarantee.liquid` â€” updated: conditional eyebrow wrapper (eyebrow now blank on homepage)
+- `sections/bf-product-ingredients.liquid` â€” updated: Chinese chars replaced with pinyin
+- `sections/header.liquid` â€” updated: corrupted emoji replaced with SVG leaf
+- `templates/index.json` â€” rebuilt: new 7-section order, bf-benefits/bf-testimonials/bf-trust removed
 
 ## What Failed
-- Dev server showed "Failed to Upload Theme Files" after pushing to the now-live theme — a temp file naming conflict in Shopify CLI. Fixed by killing and restarting the dev server.
-- Push to live theme requires `--allow-live` flag (previously unpublished, now published).
+- `{% stylesheet %}` blocks reject `@media` queries via API â†’ always use `{% style %}` for new/re-uploaded sections
+- PowerShell `ConvertTo-Json` wraps strings as `{"value":"..."}` â†’ must use `JavaScriptSerializer.Serialize()`
+- Non-ASCII characters (emoji, Unicode stars â˜…, Chinese chars) all corrupt to `?` when uploaded via PowerShell â€” always use SVG or HTML entities instead
+- `| default: 'fallback'` fires on empty string â†’ wrap in `{% unless setting == blank %}` and remove `| default:`
+- SVG stars without a flex wrapper stack vertically â†’ wrap in `<span style="display:inline-flex;...">`
+- `--bf-border-light: #FCE7F3` is near-invisible on `--bf-pink-pale: #FDF2F8` â†’ use `--bf-border: #F9A8D4` for visible dividers
 
 ## Next Step
-Add more content to the homepage — best candidate is an **ingredients / herb spotlight section** showing key botanicals (mugwort, lavender, calendula) with their benefits. This fits the premium brand tone and builds trust with skeptical first-time buyers.
+The `.impeccable/design.json` sidecar has not been written yet â€” this would enable the visual live panel at impeccable.style for the DESIGN.md system. Low priority but deferred from this session.
 
 ## Context
-- Dev server command: `env -u SHOPIFY_TOKEN -u SHOPIFY_CLI_THEME_TOKEN shopify theme dev --store 3e69v2-8h -t 162986098909 --port 9292`
-- Theme is now LIVE (published) — all pushes need `--allow-live` flag
-- Store: 3e69v2-8h.myshopify.com / voltexbox.com, theme ID 162986098909
-- Brand: VAÉ
-- Return policy: unopened/sealed only, within 30 days
-- Shipping: 6–9 business days (no free shipping)
-- Logo files: assets/logo-black.png (header), assets/logo-white.png (footer)
+- Store: 3e69v2-8h.myshopify.com Â· Theme ID: 162986098909
+- API token: [SHOPIFY_TOKEN — see local env] (do NOT put in ~/.claude/settings.json â€” breaks dev server proxy with 401)
+- DESIGN.md is at C:\Users\Turtl\DESIGN.md â€” North Star: "The Herbalist's Confidante", full token system
+- Upload pattern: `JavaScriptSerializer.Serialize()` + PUT to `/admin/api/2024-01/themes/{id}/assets.json`
+- Scratchpad for this session: `C:\Users\Turtl\AppData\Local\Temp\claude\C--Users-Turtl\1e777968-f007-4277-8527-02241a616132\scratchpad\`
+
