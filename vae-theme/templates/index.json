@@ -2,7 +2,9 @@
   "sections": {
     "hero": {
       "type": "vae-hero",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/vae-hero.png"
+      }
     },
     "proof": {
       "type": "vae-proof",
@@ -43,6 +45,9 @@
     },
     "herbs": {
       "type": "vae-herbs",
+      "settings": {
+        "image": "shopify://shop_images/vae-herbs.png"
+      },
       "blocks": {
         "herb-1": {
           "type": "herb",
@@ -116,6 +121,9 @@
     },
     "guarantee": {
       "type": "vae-guarantee",
+      "settings": {
+        "image": "shopify://shop_images/vae-ritual.png"
+      },
       "blocks": {
         "point-1": {
           "type": "point",
