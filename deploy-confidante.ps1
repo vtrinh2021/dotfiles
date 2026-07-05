@@ -10,14 +10,13 @@ $ApiVersion = '2025-01'
 $ThemeName  = 'Confidante'
 $ThemeDir   = Join-Path $PSScriptRoot 'vae-theme'
 
-$ClientId = $env:SHOPIFY_CLIENT_ID
-if (-not $ClientId) { $ClientId = '62e3a4d9184976a9e27a0aa151411eb7' }
-$ClientSecret = $env:SHOPIFY_CLIENT_SECRET
-if (-not $ClientSecret) {
-  $sec = Read-Host 'Shopify app client secret (shpss_...)' -AsSecureString
-  $ClientSecret = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
+$Credential = $env:SHOPIFY_TOKEN
+if (-not $Credential) {
+  $sec = Read-Host 'Paste Admin API token (shpat_...) or app client secret (shpss_...)' -AsSecureString
+  $Credential = [Runtime.InteropServices.Marshal]::PtrToStringAuto(
     [Runtime.InteropServices.Marshal]::SecureStringToBSTR($sec))
 }
+$Credential = $Credential.Trim()
 
 if (-not (Test-Path $ThemeDir)) {
   throw "vae-theme folder not found next to this script. Run from the dotfiles repo on branch claude/quirky-curie-pulm3m."
@@ -55,13 +54,21 @@ function Invoke-ShopifyJson {
   }
 }
 
-Write-Host "==> Requesting access token..." -ForegroundColor Cyan
-$tokenResp = Invoke-RestMethod -Method Post -Uri "https://$Store/admin/oauth/access_token" `
-  -ContentType 'application/x-www-form-urlencoded' `
-  -Body "grant_type=client_credentials&client_id=$ClientId&client_secret=$ClientSecret"
-$script:AccessToken = $tokenResp.access_token
-if (-not $script:AccessToken) { throw 'No access_token in response.' }
-Write-Host "    Token OK (scopes: $($tokenResp.scope))"
+if ($Credential.StartsWith('shpat_')) {
+  # A direct Admin API access token: no OAuth exchange needed.
+  $script:AccessToken = $Credential
+  Write-Host "==> Using Admin API token directly." -ForegroundColor Cyan
+} else {
+  Write-Host "==> Exchanging client credentials for an access token..." -ForegroundColor Cyan
+  $ClientId = $env:SHOPIFY_CLIENT_ID
+  if (-not $ClientId) { $ClientId = Read-Host 'App client ID' }
+  $tokenResp = Invoke-RestMethod -Method Post -Uri "https://$Store/admin/oauth/access_token" `
+    -ContentType 'application/x-www-form-urlencoded' `
+    -Body "grant_type=client_credentials&client_id=$ClientId&client_secret=$Credential"
+  $script:AccessToken = $tokenResp.access_token
+  if (-not $script:AccessToken) { throw 'No access_token in response.' }
+  Write-Host "    Token OK (scopes: $($tokenResp.scope))"
+}
 
 Write-Host "==> Creating unpublished theme '$ThemeName'..." -ForegroundColor Cyan
 $existing = (Invoke-ShopifyJson GET 'themes.json').themes | Where-Object { $_.name -eq $ThemeName }
