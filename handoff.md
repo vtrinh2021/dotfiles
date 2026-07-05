@@ -1,50 +1,35 @@
-﻿# Handoff
+# Handoff
 
 ## Goal
-Homepage rebuild for VAÃ‰ (voltexbox.com) to convert first-time buyers â€” 7-section structure with alternating rose-deep/pink-pale backgrounds, tighter social proof, no carousel.
+Build a complete Shopify OS 2.0 theme ("Confidante") for vaewellness.com — evolved Herbalist's Confidante identity — with Higgsfield-generated hero imagery and video.
 
 ## Current State
-**Homepage is fully live and working.** All 7 sections in order:
-1. `bf-hero` â€” rose-deep, script eyebrow, hero image, gold CTA
-2. `bf-proof-strip` â€” pink-pale, 3-column editorial testimonials, SVG stars, pink column dividers
-3. `bf-bundles` (bf-bundle-tiers) â€” bundle picker, pre-selects Complete Feminine Reset
-4. `bf-how-it-works` â€” pink-pale, no eyebrow, 3 steps + skeptic note
-5. `bf-homepage-herbs` â€” rose-deep, "Inside Every Pad", 5-herb grid
-6. `bf-guarantee` â€” pink-pale, no script eyebrow (conditional wrapper added)
-7. `bf-homepage-cta` â€” rose-deep, italic Alegreya heading, gold CTA
+**Theme is complete and passes `shopify theme check` with 0 errors** (9 warnings, all standard Google Fonts CDN notices). Lives in `vae-theme/` on branch `claude/quirky-curie-pulm3m`; upload zip built from the 7 theme folders. Design system: deep mulberry drench `#571B3C` + apothecary gold `#C99A3A` + botanical green, Young Serif display + Alegreya Sans body (OKLCH tokens with hex fallbacks in `layout/theme.liquid`). Homepage narrative: hero (video-capable) → proof → featured individual products → herbs → how-it-works → guarantee → bundles (supporting offer) → CTA. All core templates done: product (variant picker, gallery), collection (sort + pagination), cart (no-JS-safe), blog/article (comments), search, 404, password, gift card, all 7 customer templates. WCAG 2.1 AA contrast; reduced-motion swaps hero video for the still.
 
-**Product page** has `bf-product-ingredients` section with TCM herb deep-dive â€” also live and clean.
+**Higgsfield assets generated** (in the user's Higgsfield library, account user_362HhfQJCpCROl1LyGGfIGLgfRR):
+- Hero still 16:9 2K — job `cd1d9a6d-be62-40d7-823f-0be59682c0a1`
+- Herb macro 4:5 2K — job `47e4740d-18a4-4298-a78e-b57bceb3b9b9`
+- Ritual/guarantee 3:2 2K — job `f6182bd3-4f3d-4076-8a80-6aec6d1e7505`
+- Hero video loop 6s 1080p (Kling 3.0 Turbo from the hero still) — job `2df9fb80-452a-4258-aa74-7408bf739786`
 
-**Encoding bugs fixed across the whole store:**
-- Announcement bar emoji `??` â†’ SVG leaf icon
-- Proof strip stars `?????` (corrupted Unicode) â†’ SVG stars in `inline-flex` wrapper
-- Product page Chinese characters `???` â†’ romanized pinyin (Xue Lian Hua, Bai Zhi, Ding Xiang, Man Shan Hong, Bai Xian Pi)
+PRODUCT.md and DESIGN.md written at repo root (register: brand; anti-refs: cutesy pastel femcare, beige spa; emotion: reassured/credible).
 
 ## Files Being Edited
-- `sections/bf-proof-strip.liquid` â€” new section: 3-col editorial testimonials, SVG stars, pink dividers
-- `sections/bf-homepage-herbs.liquid` â€” new section: 5-herb strip on rose-deep
-- `sections/bf-homepage-cta.liquid` â€” new section: final CTA on rose-deep
-- `sections/bf-how-it-works.liquid` â€” updated: pink-pale bg, conditional eyebrow wrapper, `{% style %}`
-- `sections/bf-guarantee.liquid` â€” updated: conditional eyebrow wrapper (eyebrow now blank on homepage)
-- `sections/bf-product-ingredients.liquid` â€” updated: Chinese chars replaced with pinyin
-- `sections/header.liquid` â€” updated: corrupted emoji replaced with SVG leaf
-- `templates/index.json` â€” rebuilt: new 7-section order, bf-benefits/bf-testimonials/bf-trust removed
+- `vae-theme/**` — the entire theme (64 files): layouts, 22 sections, 5 snippets, 19 templates, base.css, global.js, 3 SVG placeholder illustrations
+- `PRODUCT.md` — brand strategy (register, users, personality, anti-references, principles)
+- `DESIGN.md` — visual system (palette, type, components, motion)
+- `.gitignore` — whitelisted PRODUCT.md, DESIGN.md, vae-theme/**; ignored vae-theme/.impeccable/
+- `handoff.md` — this file
 
 ## What Failed
-- `{% stylesheet %}` blocks reject `@media` queries via API â†’ always use `{% style %}` for new/re-uploaded sections
-- PowerShell `ConvertTo-Json` wraps strings as `{"value":"..."}` â†’ must use `JavaScriptSerializer.Serialize()`
-- Non-ASCII characters (emoji, Unicode stars â˜…, Chinese chars) all corrupt to `?` when uploaded via PowerShell â€” always use SVG or HTML entities instead
-- `| default: 'fallback'` fires on empty string â†’ wrap in `{% unless setting == blank %}` and remove `| default:`
-- SVG stars without a flex wrapper stack vertically â†’ wrap in `<span style="display:inline-flex;...">`
-- `--bf-border-light: #FCE7F3` is near-invisible on `--bf-pink-pale: #FDF2F8` â†’ use `--bf-border: #F9A8D4` for visible dividers
+- Container network policy blocks the Higgsfield CDN (`d8j0ntlcm91z4.cloudfront.net` → proxy 403), so generated media could NOT be bundled into theme assets. Worked around with on-palette SVG placeholder illustrations + image/video pickers on hero, herbs, and guarantee sections; user uploads the generated art via the theme editor.
+- Theme-check flagged conditional width/height on the hero img and `{{ email }}` on reset_password — both fixed.
 
 ## Next Step
-The `.impeccable/design.json` sidecar has not been written yet â€” this would enable the visual live panel at impeccable.style for the DESIGN.md system. Low priority but deferred from this session.
+User uploads the 4 Higgsfield assets to Shopify (theme editor → Hero image + Background video, Herbs image, Guarantee image), then uploads the theme zip via Online Store → Themes → Add theme → Upload zip file. If the user instead shares public URLs of their real product photos, feed them to Higgsfield via `media_import_url` as reference media and regenerate imagery featuring the actual product.
 
 ## Context
-- Store: 3e69v2-8h.myshopify.com Â· Theme ID: 162986098909
-- API token: [SHOPIFY_TOKEN — see local env] (do NOT put in ~/.claude/settings.json â€” breaks dev server proxy with 401)
-- DESIGN.md is at C:\Users\Turtl\DESIGN.md â€” North Star: "The Herbalist's Confidante", full token system
-- Upload pattern: `JavaScriptSerializer.Serialize()` + PUT to `/admin/api/2024-01/themes/{id}/assets.json`
-- Scratchpad for this session: `C:\Users\Turtl\AppData\Local\Temp\claude\C--Users-Turtl\1e777968-f007-4277-8527-02241a616132\scratchpad\`
-
+- Store: 3e69v2-8h.myshopify.com, new domain vaewellness.com — same herbal feminine wellness pads
+- User chose: "Evolve it" (brand), same store, editorial botanical photo imagery, KEEP bundles (individual products lead, bundles support — reverses the earlier "remove bundles" request)
+- Bundle products must be picked in the theme editor (vae-bundles blocks have product pickers, no products wired yet); featured-products section needs a collection picked
+- Old handoff context (voltexbox.com homepage rebuild, PowerShell upload pattern) is superseded by this theme-from-scratch approach
