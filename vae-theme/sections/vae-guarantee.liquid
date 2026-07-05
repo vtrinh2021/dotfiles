@@ -1,0 +1,86 @@
+<section class="vae-section surface-blush">
+  <div class="page-width">
+    <div class="guarantee-split">
+      <div>
+        <p class="vae-rule">{% render 'icon', name: 'leaf' %}</p>
+        <h2>{{ section.settings.heading }}</h2>
+        <p class="vae-lede" style="margin-top: 0.9rem;">{{ section.settings.text }}</p>
+
+        <ul class="guarantee-points">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>
+              {% render 'icon', name: 'check' %}
+              <span>{{ block.settings.text | escape }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div>
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1000 }}"
+            srcset="{{ section.settings.image | image_url: width: 600 }} 600w, {{ section.settings.image | image_url: width: 1000 }} 1000w"
+            sizes="(min-width: 900px) 40vw, 92vw"
+            alt="{{ section.settings.image.alt | default: 'Hands cradling a warm cup of herbal tea in soft morning light' }}"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="lazy">
+        {%- else -%}
+          <img
+            src="{{ 'vae-placeholder-ritual.svg' | asset_url }}"
+            alt="Line drawing of a warm cup of herbal tea with rising steam"
+            width="1200"
+            height="800"
+            loading="lazy">
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Guarantee",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sixty days. Our risk, not yours."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Try VAÉ for two full cycles. If you don't feel the difference, write to us and we refund every cent — no forms, no return shipping, no convincing required."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Upload the VAÉ ritual photograph here. A botanical illustration shows until you do."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Full refund within 60 days, even on opened boxes" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guarantee",
+      "blocks": [
+        { "type": "point" },
+        { "type": "point", "settings": { "text": "Free tracked shipping on every order" } },
+        { "type": "point", "settings": { "text": "One email to a real person is all it takes" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

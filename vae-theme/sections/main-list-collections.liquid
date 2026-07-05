@@ -1,0 +1,35 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width">
+    <header class="collection-header">
+      <h1>Collections</h1>
+    </header>
+
+    <div class="product-grid">
+      {%- for collection in collections -%}
+        <article class="product-card">
+          <div class="product-card__media">
+            {%- if collection.featured_image -%}
+              <img
+                src="{{ collection.featured_image | image_url: width: 640 }}"
+                alt="{{ collection.featured_image.alt | default: collection.title | escape }}"
+                width="{{ collection.featured_image.width }}"
+                height="{{ collection.featured_image.height }}"
+                loading="lazy">
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <h2 class="product-card__title"><a href="{{ collection.url }}">{{ collection.title | escape }}</a></h2>
+          <p class="product-card__price">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,73 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width">
+    <article class="article-body" style="margin-inline: auto;">
+      <header style="margin-bottom: 2rem;">
+        <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%B %-d, %Y' }}</time>
+        <h1 style="margin-top: 0.4rem;">{{ article.title | escape }}</h1>
+      </header>
+
+      {%- if article.image -%}
+        <img
+          src="{{ article.image | image_url: width: 1400 }}"
+          alt="{{ article.image.alt | default: article.title | escape }}"
+          width="{{ article.image.width }}"
+          height="{{ article.image.height }}">
+      {%- endif -%}
+
+      {{ article.content }}
+    </article>
+
+    {%- if blog.comments_enabled? -%}
+      <div class="article-body" style="margin-inline: auto; margin-top: 3.5rem;">
+        <h2 style="font-size: 1.5rem;">Comments ({{ article.comments_count }})</h2>
+
+        {%- paginate article.comments by 10 -%}
+          {%- for comment in article.comments -%}
+            <div style="border-top: 1.5px solid var(--vae-rose-border); padding-block: 1.25rem;">
+              <p>{{ comment.content }}</p>
+              <p style="font-size: 0.9rem; color: var(--vae-rose-mid);">{{ comment.author | escape }} · {{ comment.created_at | date: '%B %-d, %Y' }}</p>
+            </div>
+          {%- endfor -%}
+          {% render 'pagination', paginate: paginate %}
+        {%- endpaginate -%}
+
+        {%- form 'new_comment', article -%}
+          <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Leave a comment</h3>
+          {%- if form.posted_successfully? -%}
+            <p class="form-success">Thank you — your comment was posted{% if blog.moderated? %} and is awaiting moderation{% endif %}.</p>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <div class="form-errors">
+              <p>Please correct the following:</p>
+              <ul>
+                {%- for field in form.errors -%}
+                  <li>{{ field | capitalize }} {{ form.errors.messages[field] }}</li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+          <div class="field">
+            <label for="CommentAuthor">Name</label>
+            <input type="text" id="CommentAuthor" name="comment[author]" value="{{ form.author }}" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="CommentEmail">Email</label>
+            <input type="email" id="CommentEmail" name="comment[email]" value="{{ form.email }}" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="CommentBody">Comment</label>
+            <textarea id="CommentBody" name="comment[body]" rows="5" required>{{ form.body }}</textarea>
+          </div>
+          <button type="submit" class="btn btn--gold">Post comment</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

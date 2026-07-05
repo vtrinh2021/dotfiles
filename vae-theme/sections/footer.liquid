@@ -1,0 +1,107 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand">{{ shop.name }}</p>
+        <p class="footer-note">{{ section.settings.blurb }}</p>
+      </div>
+
+      {%- if section.settings.menu != blank -%}
+        <nav aria-label="Footer navigation">
+          <h3>Explore</h3>
+          <ul class="footer-links">
+            {%- for link in section.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.support_menu != blank -%}
+        <nav aria-label="Support navigation">
+          <h3>Support</h3>
+          <ul class="footer-links">
+            {%- for link in section.settings.support_menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      <div class="footer-newsletter">
+        <h3>{{ section.settings.newsletter_heading }}</h3>
+        <p>{{ section.settings.newsletter_text }}</p>
+        {%- form 'customer', class: 'newsletter' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="form-success" tabindex="-1" autofocus>Thank you — you're on the list.</p>
+          {%- else -%}
+            {%- if form.errors -%}
+              <p class="form-errors">{{ form.errors.messages.email }}</p>
+            {%- endif -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="newsletter-form">
+              <label class="visually-hidden" for="FooterEmail" style="position:absolute;clip:rect(0 0 0 0);">Email address</label>
+              <input
+                id="FooterEmail"
+                type="email"
+                name="contact[email]"
+                value="{{ form.email }}"
+                placeholder="Email address"
+                required
+                autocomplete="email">
+              <button type="submit" class="btn btn--gold">Join</button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+      <span>{{ section.settings.disclaimer }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "blurb",
+      "label": "Brand blurb",
+      "default": "Herbal wellness rooted in centuries of traditional Chinese medicine, made for the modern woman."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Explore menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "support_menu",
+      "label": "Support menu"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "From the herbalist's desk"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "default": "Herb wisdom and honest offers, once or twice a month. No noise."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "These statements have not been evaluated by the FDA."
+    }
+  ]
+}
+{% endschema %}

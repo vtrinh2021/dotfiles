@@ -1,0 +1,16 @@
+{%- comment -%}
+  Renders a product's price. Usage: {% render 'price', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign target = product.selected_or_first_available_variant | default: product
+-%}
+<span class="price">
+  {%- if product.price_varies -%}
+    From {{ product.price_min | money }}
+  {%- else -%}
+    {{ target.price | money }}
+  {%- endif -%}
+  {%- if target.compare_at_price > target.price -%}
+    <s aria-label="Regular price">{{ target.compare_at_price | money }}</s>
+  {%- endif -%}
+</span>

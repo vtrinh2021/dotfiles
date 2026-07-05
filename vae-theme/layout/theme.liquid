@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#571B3C">
+
+  <title>
+    {{- page_title -}}
+    {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% if settings.favicon != blank %}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {% endif %}
+
+  {% render 'meta-tags' %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+
+  <style>
+    :root {
+      --vae-mulberry: #571B3C;
+      --vae-mulberry-deep: #431530;
+      --vae-blush: #FAEFF2;
+      --vae-ink: #3D1F31;
+      --vae-light: #F7E6ED;
+      --vae-gold: #C99A3A;
+      --vae-gold-deep: #A87C25;
+      --vae-gold-ink: #2E1420;
+      --vae-green: #2E5F45;
+      --vae-rose-border: #E5B8C6;
+      --vae-rose-mid: #A34E70;
+    }
+    @supports (color: oklch(0.5 0.1 355)) {
+      :root {
+        --vae-mulberry: oklch(0.32 0.09 355);
+        --vae-mulberry-deep: oklch(0.26 0.08 355);
+        --vae-blush: oklch(0.96 0.015 0);
+        --vae-ink: oklch(0.25 0.05 350);
+        --vae-light: oklch(0.94 0.02 355);
+        --vae-gold: oklch(0.72 0.13 80);
+        --vae-gold-deep: oklch(0.62 0.12 78);
+        --vae-gold-ink: oklch(0.2 0.05 355);
+        --vae-green: oklch(0.42 0.07 155);
+        --vae-rose-border: oklch(0.83 0.06 0);
+        --vae-rose-mid: oklch(0.55 0.12 358);
+      }
+    }
+  </style>
+
+  {{ content_for_header }}
+</head>
+
+<body class="template-{{ template.name | handle }}">
+  <a class="skip-link" href="#MainContent">Skip to content</a>
+
+  {% section 'header' %}
+
+  <main id="MainContent" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  <script src="{{ 'global.js' | asset_url }}" defer></script>
+</body>
+</html>

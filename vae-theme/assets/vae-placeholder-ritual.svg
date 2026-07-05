@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Line drawing of a warm cup of herbal tea">
+  <rect width="1200" height="800" fill="#F3DCE4"/>
+  <g fill="none" stroke="#571B3C" stroke-width="3" stroke-linecap="round">
+    <path d="M470 470 L730 470 C726 560 700 620 600 620 C500 620 474 560 470 470 Z"/>
+    <path d="M730 490 C790 486 812 520 790 552 C774 576 744 580 722 570"/>
+    <ellipse cx="600" cy="470" rx="130" ry="16"/>
+  </g>
+  <g fill="none" stroke="#A34E70" stroke-width="2.5" stroke-linecap="round" opacity="0.8">
+    <path d="M560 420 C548 390 556 364 578 344 C590 366 584 396 560 420"/>
+    <path d="M612 414 C606 380 616 350 642 330 C650 356 640 390 612 414"/>
+  </g>
+  <g fill="none" stroke="#C99A3A" stroke-width="2.5" stroke-linecap="round" opacity="0.9">
+    <path d="M420 640 C404 606 416 574 448 556"/>
+    <path d="M448 556 C462 540 463 518 450 502 C436 518 437 540 448 556"/>
+    <path d="M760 640 C778 610 770 578 742 558"/>
+  </g>
+</svg>

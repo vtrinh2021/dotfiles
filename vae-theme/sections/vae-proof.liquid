@@ -1,0 +1,65 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width">
+    <div class="proof-grid">
+      {%- for block in section.blocks -%}
+        <figure class="proof-item reveal" {{ block.shopify_attributes }}>
+          <div class="proof-stars" role="img" aria-label="{{ block.settings.stars }} out of 5 stars">
+            {%- for i in (1..block.settings.stars) -%}
+              {% render 'icon', name: 'star' %}
+            {%- endfor -%}
+          </div>
+          <blockquote class="proof-quote">{{ block.settings.quote }}</blockquote>
+          <figcaption>
+            <span class="proof-name">{{ block.settings.name | escape }}</span>
+            {%- if block.settings.detail != blank -%}
+              <span class="proof-detail"> · {{ block.settings.detail | escape }}</span>
+            {%- endif -%}
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Proof strip",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "I was the biggest skeptic in the room. Three weeks in, I ordered two more boxes." },
+        { "type": "text", "id": "name", "label": "Name", "default": "Mai T." },
+        { "type": "text", "id": "detail", "label": "Detail", "default": "Verified buyer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Proof strip",
+      "blocks": [
+        { "type": "testimonial" },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "It feels like someone finally made this for grown women. Calm, no gimmicks — and it works.",
+            "name": "Renee A.",
+            "detail": "Verified buyer"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "My grandmother knew these herbs by name. Seeing them used properly again means everything.",
+            "name": "Lin H.",
+            "detail": "Verified buyer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,35 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width util-page">
+    <h1>Activate account</h1>
+    <p style="margin-bottom: 1.75rem;">Create a password to activate your account.</p>
+
+    {%- form 'activate_customer_password' -%}
+      {%- if form.errors -%}
+        <div class="form-errors">
+          <ul>
+            {%- for field in form.errors -%}
+              <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      <div class="field">
+        <label for="ActivatePassword">Password</label>
+        <input type="password" id="ActivatePassword" name="customer[password]" required autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label for="ActivatePasswordConfirm">Confirm password</label>
+        <input type="password" id="ActivatePasswordConfirm" name="customer[password_confirmation]" required autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn--gold">Activate account</button>
+      <button type="submit" class="btn btn--outline" name="decline" style="margin-left: 0.75rem;">Decline invitation</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Activate account",
+  "settings": []
+}
+{% endschema %}

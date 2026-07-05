@@ -1,0 +1,21 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Confidante",
+    "theme_version": "1.0.0",
+    "theme_author": "VAÉ Wellness",
+    "theme_documentation_url": "https://vaewellness.com",
+    "theme_support_url": "https://vaewellness.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 × 32 px recommended"
+      }
+    ]
+  }
+]

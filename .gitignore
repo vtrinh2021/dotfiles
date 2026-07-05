@@ -23,3 +23,12 @@
 
 # Handoff files (generated on wrap-up)
 !handoff.md
+
+# Design context docs
+!PRODUCT.md
+!DESIGN.md
+
+# VAÉ Shopify theme
+!vae-theme/
+!vae-theme/**
+vae-theme/.impeccable/

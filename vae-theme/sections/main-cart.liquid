@@ -1,0 +1,80 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width">
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty">
+        <h1>Your cart is empty</h1>
+        <p>The remedies are one click away — and every order is covered by the 60-day guarantee.</p>
+        <a class="btn btn--gold" href="{{ routes.all_products_collection_url }}">Shop the remedies</a>
+      </div>
+    {%- else -%}
+      <h1 style="margin-bottom: 2rem;">Your cart</h1>
+
+      <form action="{{ routes.cart_url }}" method="post" data-cart-form>
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Quantity</th>
+              <th scope="col" style="text-align: right;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr>
+                <td>
+                  <div class="cart-item">
+                    {%- if item.image -%}
+                      <img
+                        src="{{ item.image | image_url: width: 160 }}"
+                        alt="{{ item.image.alt | default: item.product.title | escape }}"
+                        width="76"
+                        height="{{ 76 | divided_by: item.image.aspect_ratio | round }}"
+                        loading="lazy">
+                    {%- endif -%}
+                    <div>
+                      <a class="cart-item__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+                      {%- unless item.product.has_only_default_variant -%}
+                        <p class="cart-item__variant">{{ item.variant.title | escape }}</p>
+                      {%- endunless -%}
+                      <a class="cart-item__remove" href="{{ item.url_to_remove }}">Remove</a>
+                    </div>
+                  </div>
+                </td>
+                <td class="cart-qty">
+                  <label style="position:absolute;clip:rect(0 0 0 0);" for="Qty-{{ forloop.index }}">Quantity for {{ item.product.title | escape }}</label>
+                  <input
+                    id="Qty-{{ forloop.index }}"
+                    type="number"
+                    name="updates[]"
+                    value="{{ item.quantity }}"
+                    min="0"
+                    inputmode="numeric">
+                </td>
+                <td style="text-align: right;">{{ item.final_line_price | money }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        <div class="cart-footer">
+          <div class="cart-summary">
+            <div class="cart-summary__total">
+              <span>Subtotal</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+            <p class="cart-summary__note">Free tracked shipping. Taxes calculated at checkout.</p>
+            <button type="submit" name="update" class="btn btn--outline btn--full">Update cart</button>
+            <button type="submit" name="checkout" class="btn btn--gold btn--full">Check out</button>
+          </div>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

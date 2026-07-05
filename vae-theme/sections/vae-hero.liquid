@@ -1,0 +1,108 @@
+<section class="vae-hero">
+  <div class="vae-hero__media" aria-hidden="true">
+    {%- liquid
+      assign poster_url = 'vae-placeholder-hero.svg' | asset_url
+      assign poster_width = 1600
+      assign poster_height = 900
+      if section.settings.image != blank
+        assign poster_url = section.settings.image | image_url: width: 2400
+        assign poster_width = section.settings.image.width
+        assign poster_height = section.settings.image.height
+      endif
+    -%}
+    {%- if section.settings.show_video and section.settings.video != blank -%}
+      <video
+        data-hero-video
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="{{ poster_url }}">
+        {%- for source in section.settings.video.sources -%}
+          <source src="{{ source.url }}" type="{{ source.mime_type }}">
+        {%- endfor -%}
+      </video>
+    {%- else -%}
+      <img
+        src="{{ poster_url }}"
+        alt=""
+        width="{{ poster_width }}"
+        height="{{ poster_height }}"
+        fetchpriority="high">
+    {%- endif -%}
+  </div>
+  <div class="vae-hero__scrim" aria-hidden="true"></div>
+
+  <div class="page-width" style="position: relative; width: 100%;">
+    <div class="vae-hero__content">
+      <h1>{{ section.settings.heading }}</h1>
+      <p class="vae-lede">{{ section.settings.subheading }}</p>
+      <a class="btn btn--gold" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">
+        {{- section.settings.cta_label -}}
+      </a>
+      {%- if section.settings.trust_line != blank -%}
+        <p class="vae-hero__trust">
+          {% render 'icon', name: 'check' %}
+          {{ section.settings.trust_line | escape }}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Five herbs. Centuries of knowing. One quiet change."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Herbal wellness pads infused with snow lotus and four companion herbs from traditional Chinese medicine — for women who want an alternative that takes itself seriously."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Shop the remedies"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "trust_line",
+      "label": "Trust line",
+      "default": "60-day money-back guarantee — try it on us"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image (poster)",
+      "info": "Upload the VAÉ editorial hero still here. A botanical illustration shows until you do."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video",
+      "label": "Play background video",
+      "info": "Respects reduced-motion: those visitors see the still image.",
+      "default": true
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video",
+      "info": "Upload the VAÉ hero loop here. The still image shows until you do."
+    }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

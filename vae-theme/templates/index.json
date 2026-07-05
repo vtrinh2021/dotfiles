@@ -1,0 +1,169 @@
+{
+  "sections": {
+    "hero": {
+      "type": "vae-hero",
+      "settings": {}
+    },
+    "proof": {
+      "type": "vae-proof",
+      "blocks": {
+        "proof-1": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "quote": "I was the biggest skeptic in the room. Three weeks in, I ordered two more boxes.",
+            "name": "Mai T.",
+            "detail": "Verified buyer"
+          }
+        },
+        "proof-2": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "quote": "It feels like someone finally made this for grown women. Calm, no gimmicks — and it works.",
+            "name": "Renee A.",
+            "detail": "Verified buyer"
+          }
+        },
+        "proof-3": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "quote": "My grandmother knew these herbs by name. Seeing them used properly again means everything.",
+            "name": "Lin H.",
+            "detail": "Verified buyer"
+          }
+        }
+      },
+      "block_order": ["proof-1", "proof-2", "proof-3"]
+    },
+    "featured": {
+      "type": "vae-featured-products",
+      "settings": {}
+    },
+    "herbs": {
+      "type": "vae-herbs",
+      "blocks": {
+        "herb-1": {
+          "type": "herb",
+          "settings": {
+            "name": "Snow lotus",
+            "pinyin": "Xue Lian Hua",
+            "function": "The centerpiece — prized in high-altitude medicine for warmth and balance."
+          }
+        },
+        "herb-2": {
+          "type": "herb",
+          "settings": {
+            "name": "White angelica",
+            "pinyin": "Bai Zhi",
+            "function": "Traditionally used to dispel dampness and support circulation."
+          }
+        },
+        "herb-3": {
+          "type": "herb",
+          "settings": {
+            "name": "Clove",
+            "pinyin": "Ding Xiang",
+            "function": "Warming and gently antimicrobial, known to every apothecary tradition."
+          }
+        },
+        "herb-4": {
+          "type": "herb",
+          "settings": {
+            "name": "Rhododendron",
+            "pinyin": "Man Shan Hong",
+            "function": "A mountain herb long paired with snow lotus in northern formulas."
+          }
+        },
+        "herb-5": {
+          "type": "herb",
+          "settings": {
+            "name": "Dictamnus bark",
+            "pinyin": "Bai Xian Pi",
+            "function": "The classical companion for calming and clearing."
+          }
+        }
+      },
+      "block_order": ["herb-1", "herb-2", "herb-3", "herb-4", "herb-5"]
+    },
+    "how": {
+      "type": "vae-how",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "Wear as usual",
+            "text": "Use exactly like a regular pad — same comfort, same fit, nothing new to learn."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Let the herbs work",
+            "text": "Body warmth slowly releases the herbal infusion held in the pad's core over several hours."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "title": "Notice the difference",
+            "text": "Most women report a felt difference within the first few cycles. If you don't, the guarantee has you covered."
+          }
+        }
+      },
+      "block_order": ["step-1", "step-2", "step-3"]
+    },
+    "guarantee": {
+      "type": "vae-guarantee",
+      "blocks": {
+        "point-1": {
+          "type": "point",
+          "settings": { "text": "Full refund within 60 days, even on opened boxes" }
+        },
+        "point-2": {
+          "type": "point",
+          "settings": { "text": "Free tracked shipping on every order" }
+        },
+        "point-3": {
+          "type": "point",
+          "settings": { "text": "One email to a real person is all it takes" }
+        }
+      },
+      "block_order": ["point-1", "point-2", "point-3"]
+    },
+    "bundles": {
+      "type": "vae-bundles",
+      "blocks": {
+        "bundle-1": {
+          "type": "bundle",
+          "settings": {
+            "note": "One cycle of coverage — the right way to start.",
+            "featured": false
+          }
+        },
+        "bundle-2": {
+          "type": "bundle",
+          "settings": {
+            "note": "Three cycles of coverage, one delivery.",
+            "featured": true,
+            "flag_label": "Most chosen"
+          }
+        },
+        "bundle-3": {
+          "type": "bundle",
+          "settings": {
+            "note": "Six cycles — the full reset, at the best price per box.",
+            "featured": false
+          }
+        }
+      },
+      "block_order": ["bundle-1", "bundle-2", "bundle-3"]
+    },
+    "cta": {
+      "type": "vae-cta",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "proof", "featured", "herbs", "how", "guarantee", "bundles", "cta"]
+}

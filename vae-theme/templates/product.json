@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "herbs": {
+      "type": "vae-herbs",
+      "blocks": {
+        "herb-1": {
+          "type": "herb",
+          "settings": {
+            "name": "Snow lotus",
+            "pinyin": "Xue Lian Hua",
+            "function": "The centerpiece — prized in high-altitude medicine for warmth and balance."
+          }
+        },
+        "herb-2": {
+          "type": "herb",
+          "settings": {
+            "name": "White angelica",
+            "pinyin": "Bai Zhi",
+            "function": "Traditionally used to dispel dampness and support circulation."
+          }
+        },
+        "herb-3": {
+          "type": "herb",
+          "settings": {
+            "name": "Clove",
+            "pinyin": "Ding Xiang",
+            "function": "Warming and gently antimicrobial, known to every apothecary tradition."
+          }
+        },
+        "herb-4": {
+          "type": "herb",
+          "settings": {
+            "name": "Rhododendron",
+            "pinyin": "Man Shan Hong",
+            "function": "A mountain herb long paired with snow lotus in northern formulas."
+          }
+        },
+        "herb-5": {
+          "type": "herb",
+          "settings": {
+            "name": "Dictamnus bark",
+            "pinyin": "Bai Xian Pi",
+            "function": "The classical companion for calming and clearing."
+          }
+        }
+      },
+      "block_order": ["herb-1", "herb-2", "herb-3", "herb-4", "herb-5"]
+    },
+    "guarantee": {
+      "type": "vae-guarantee",
+      "blocks": {
+        "point-1": {
+          "type": "point",
+          "settings": { "text": "Full refund within 60 days, even on opened boxes" }
+        },
+        "point-2": {
+          "type": "point",
+          "settings": { "text": "Free tracked shipping on every order" }
+        },
+        "point-3": {
+          "type": "point",
+          "settings": { "text": "One email to a real person is all it takes" }
+        }
+      },
+      "block_order": ["point-1", "point-2", "point-3"]
+    }
+  },
+  "order": ["main", "herbs", "guarantee"]
+}

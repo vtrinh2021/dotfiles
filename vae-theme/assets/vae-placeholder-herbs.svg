@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Line drawing of the five herbs">
+  <defs>
+    <linearGradient id="depth" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4C1735"/>
+      <stop offset="100%" stop-color="#3B1129"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#depth)"/>
+  <g fill="none" stroke="#C99A3A" stroke-width="2.5" stroke-linecap="round" opacity="0.9">
+    <path d="M400 820 C392 640 410 480 470 360"/>
+    <path d="M470 360 C446 330 444 288 471 258 C498 288 494 330 470 360"/>
+    <path d="M470 360 C438 344 402 346 376 370 C410 388 448 382 470 360"/>
+    <path d="M470 360 C502 344 538 346 564 370 C530 388 492 382 470 360"/>
+    <path d="M420 640 C366 618 330 574 322 522 C378 536 416 582 420 640"/>
+    <path d="M436 530 C486 506 544 510 588 542 C540 570 478 564 436 530"/>
+  </g>
+  <g fill="none" stroke="#E5B8C6" stroke-width="2" stroke-linecap="round" opacity="0.55">
+    <path d="M220 840 C216 720 232 620 280 540"/>
+    <path d="M280 540 C262 516 261 486 281 463 C301 486 300 516 280 540"/>
+    <path d="M252 680 C216 664 192 632 188 594 C228 606 252 640 252 680"/>
+    <path d="M600 840 C606 748 592 668 556 606"/>
+    <path d="M556 606 C574 586 575 558 558 538 C540 558 541 586 556 606"/>
+  </g>
+  <g fill="#C99A3A" opacity="0.65">
+    <circle cx="310" cy="782" r="4"/>
+    <circle cx="516" cy="760" r="3.5"/>
+    <circle cx="360" cy="880" r="3"/>
+    <circle cx="470" cy="856" r="3"/>
+  </g>
+</svg>

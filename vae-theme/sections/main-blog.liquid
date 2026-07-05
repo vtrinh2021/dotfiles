@@ -1,0 +1,28 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width">
+    <header class="collection-header">
+      <h1>{{ blog.title | escape }}</h1>
+    </header>
+
+    {%- paginate blog.articles by 8 -%}
+      <div class="article-list">
+        {%- for article in blog.articles -%}
+          <article class="article-card">
+            <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%B %-d, %Y' }}</time>
+            <h2><a href="{{ article.url }}">{{ article.title | escape }}</a></h2>
+            <p>{{ article.excerpt_or_content | strip_html | truncate: 180 }}</p>
+          </article>
+        {%- endfor -%}
+      </div>
+
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": []
+}
+{% endschema %}

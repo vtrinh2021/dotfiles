@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gift card · {{ shop.name }}</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  <style>
+    :root {
+      --vae-mulberry: #571B3C;
+      --vae-mulberry-deep: #431530;
+      --vae-blush: #FAEFF2;
+      --vae-ink: #3D1F31;
+      --vae-light: #F7E6ED;
+      --vae-gold: #C99A3A;
+      --vae-gold-deep: #A87C25;
+      --vae-gold-ink: #2E1420;
+      --vae-green: #2E5F45;
+      --vae-rose-border: #E5B8C6;
+      --vae-rose-mid: #A34E70;
+    }
+  </style>
+  {{ content_for_header }}
+</head>
+<body class="template-gift-card">
+  <main class="vae-section surface-blush" style="min-height: 100vh;">
+    <div class="page-width util-page util-page--center">
+      <p class="footer-brand" style="color: var(--vae-mulberry); font-size: 2rem;">{{ shop.name }}</p>
+      <h1 style="font-size: clamp(1.8rem, 4vw, 2.6rem);">Here's your gift card</h1>
+      <p class="vae-lede" style="margin: 1rem auto 2rem;">
+        {{ gift_card.initial_value | money }} toward anything in the store.
+      </p>
+
+      <div style="border: 1.5px solid var(--vae-rose-border); border-radius: 2px; background: #fff; padding: 2rem; max-width: 420px; margin-inline: auto;">
+        <p style="font-size: 1.5rem; font-weight: 700; letter-spacing: 0.08em;">{{ gift_card.code | format_code }}</p>
+        {%- if gift_card.expired -%}
+          <p style="color: var(--vae-rose-mid); margin-top: 0.75rem;">This gift card has expired.</p>
+        {%- elsif gift_card.balance != gift_card.initial_value -%}
+          <p style="margin-top: 0.75rem;">Balance remaining: {{ gift_card.balance | money }}</p>
+        {%- endif -%}
+      </div>
+
+      <p style="margin-top: 2rem;">
+        <a class="btn btn--gold" href="{{ shop.url }}">Start shopping</a>
+      </p>
+      <p style="margin-top: 1rem; font-size: 0.9rem;">Enter this code at checkout to redeem.</p>
+    </div>
+  </main>
+</body>
+</html>

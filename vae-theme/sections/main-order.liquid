@@ -1,0 +1,56 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width">
+    <p style="margin-bottom: 0.5rem;"><a href="{{ routes.account_url }}">&larr; Back to account</a></p>
+    <h1 style="margin-bottom: 0.5rem;">Order {{ order.name }}</h1>
+    <p style="margin-bottom: 2.5rem;">Placed {{ order.created_at | date: '%B %-d, %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Quantity</th>
+          <th scope="col" style="text-align: right;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for line_item in order.line_items -%}
+          <tr>
+            <td>
+              {{ line_item.title | escape }}
+              {%- if line_item.variant.title != 'Default Title' -%}
+                <span class="cart-item__variant"> · {{ line_item.variant.title | escape }}</span>
+              {%- endif -%}
+            </td>
+            <td>{{ line_item.quantity }}</td>
+            <td style="text-align: right;">{{ line_item.final_line_price | money }}</td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+
+    <div class="cart-footer">
+      <div class="cart-summary">
+        <div style="display: flex; justify-content: space-between;"><span>Subtotal</span><span>{{ order.line_items_subtotal_price | money }}</span></div>
+        {%- for shipping_method in order.shipping_methods -%}
+          <div style="display: flex; justify-content: space-between;"><span>Shipping ({{ shipping_method.title | escape }})</span><span>{{ shipping_method.price | money }}</span></div>
+        {%- endfor -%}
+        {%- for tax_line in order.tax_lines -%}
+          <div style="display: flex; justify-content: space-between;"><span>{{ tax_line.title | escape }}</span><span>{{ tax_line.price | money }}</span></div>
+        {%- endfor -%}
+        <div class="cart-summary__total"><span>Total</span><span>{{ order.total_price | money }}</span></div>
+      </div>
+    </div>
+
+    {%- if order.shipping_address -%}
+      <h2 style="font-size: 1.3rem; margin-top: 3rem; margin-bottom: 0.75rem;">Shipping address</h2>
+      <p>{{ order.shipping_address | format_address }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Order",
+  "settings": []
+}
+{% endschema %}

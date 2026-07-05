@@ -1,0 +1,47 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width">
+    <h1 style="margin-bottom: 0.5rem;">Account</h1>
+    <p style="margin-bottom: 2.5rem;">
+      {{ customer.name | escape }} ·
+      <a href="{{ routes.account_logout_url }}">Sign out</a> ·
+      <a href="{{ routes.account_addresses_url }}">Addresses ({{ customer.addresses_count }})</a>
+    </p>
+
+    <h2 style="font-size: 1.5rem; margin-bottom: 1.25rem;">Order history</h2>
+
+    {%- if customer.orders.size == 0 -%}
+      <p>You haven't placed any orders yet. <a href="{{ routes.all_products_collection_url }}">Browse the remedies</a>.</p>
+    {%- else -%}
+      {%- paginate customer.orders by 20 -%}
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th scope="col">Order</th>
+              <th scope="col">Date</th>
+              <th scope="col">Status</th>
+              <th scope="col" style="text-align: right;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for order in customer.orders -%}
+              <tr>
+                <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                <td>{{ order.created_at | date: '%B %-d, %Y' }}</td>
+                <td>{{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</td>
+                <td style="text-align: right;">{{ order.total_price | money }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+        {% render 'pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Account",
+  "settings": []
+}
+{% endschema %}

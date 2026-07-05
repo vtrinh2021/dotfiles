@@ -1,0 +1,50 @@
+<section class="vae-section vae-section--tight surface-blush">
+  <div class="page-width util-page">
+    <h1>Sign in</h1>
+
+    {%- form 'customer_login' -%}
+      {%- if form.errors -%}
+        <div class="form-errors">
+          <p>{{ form.errors.messages.form | default: 'Please check your email and password.' }}</p>
+        </div>
+      {%- endif -%}
+      <div class="field">
+        <label for="LoginEmail">Email</label>
+        <input type="email" id="LoginEmail" name="customer[email]" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="LoginPassword">Password</label>
+        <input type="password" id="LoginPassword" name="customer[password]" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn--gold">Sign in</button>
+      <p style="margin-top: 1.25rem;">
+        <a href="#recover">Forgot your password?</a> ·
+        <a href="{{ routes.account_register_url }}">Create an account</a>
+      </p>
+    {%- endform -%}
+
+    <div id="recover" style="margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1.5px solid var(--vae-rose-border);">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Reset your password</h2>
+      {%- form 'recover_customer_password' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-success">If that email exists with us, a reset link is on its way.</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <p class="form-errors">{{ form.errors.messages.form }}</p>
+        {%- endif -%}
+        <div class="field">
+          <label for="RecoverEmail">Email</label>
+          <input type="email" id="RecoverEmail" name="email" required autocomplete="email">
+        </div>
+        <button type="submit" class="btn btn--outline">Send reset link</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Login",
+  "settings": []
+}
+{% endschema %}

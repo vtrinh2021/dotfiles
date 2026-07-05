@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Botanical study in mulberry and gold">
+  <defs>
+    <radialGradient id="glow" cx="68%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#6E2A4E"/>
+      <stop offset="55%" stop-color="#571B3C"/>
+      <stop offset="100%" stop-color="#431530"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <g fill="none" stroke="#C99A3A" stroke-width="2.5" stroke-linecap="round" opacity="0.85">
+    <path d="M1060 720 C1050 560 1080 430 1150 330"/>
+    <path d="M1150 330 C1130 300 1128 262 1152 234 C1176 262 1174 300 1150 330"/>
+    <path d="M1150 330 C1122 316 1090 318 1066 340 C1096 356 1130 350 1150 330"/>
+    <path d="M1150 330 C1178 316 1210 318 1234 340 C1204 356 1170 350 1150 330"/>
+    <path d="M1090 560 C1040 540 1006 500 998 452 C1050 466 1086 508 1090 560"/>
+    <path d="M1104 470 C1150 448 1204 452 1244 482 C1200 508 1142 502 1104 470"/>
+  </g>
+  <g fill="none" stroke="#E5B8C6" stroke-width="2" stroke-linecap="round" opacity="0.5">
+    <path d="M1320 760 C1316 650 1330 560 1372 486"/>
+    <path d="M1372 486 C1356 464 1355 436 1373 415 C1391 436 1390 464 1372 486"/>
+    <path d="M1348 610 C1314 596 1292 568 1288 534 C1324 544 1348 574 1348 610"/>
+    <path d="M860 760 C864 680 852 610 820 556"/>
+    <path d="M820 556 C836 538 837 514 822 496 C806 514 807 538 820 556"/>
+  </g>
+  <g fill="#C99A3A" opacity="0.6">
+    <circle cx="1246" cy="702" r="4"/>
+    <circle cx="1270" cy="668" r="3"/>
+    <circle cx="946" cy="688" r="3.5"/>
+    <circle cx="1420" cy="640" r="3"/>
+  </g>
+</svg>
