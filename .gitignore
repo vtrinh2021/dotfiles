@@ -32,3 +32,5 @@
 !vae-theme/
 !vae-theme/**
 vae-theme/.impeccable/
+!deploy-confidante.ps1
+product-images.txt
