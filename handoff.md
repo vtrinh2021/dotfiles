@@ -25,6 +25,13 @@ PRODUCT.md and DESIGN.md written at repo root (register: brand; anti-refs: cutes
 - Container network policy blocks the Higgsfield CDN (`d8j0ntlcm91z4.cloudfront.net` → proxy 403), so generated media could NOT be bundled into theme assets. Worked around with on-palette SVG placeholder illustrations + image/video pickers on hero, herbs, and guarantee sections; user uploads the generated art via the theme editor.
 - Theme-check flagged conditional width/height on the hero img and `{{ email }}` on reset_password — both fixed.
 
+## Session 2 additions
+- Deploy is user-run: `deploy-confidante.ps1` at repo root (accepts shpat_ token directly or shpss_ client secret + client ID; creates/reuses unpublished "Confidante" theme, uploads in dependency order, prints preview URL + product image URLs).
+- Templates now hardwired to `shopify://shop_images/vae-hero.png`, `vae-herbs.png`, `vae-ritual.png` (index.json + product.json); SVG fallbacks show until files exist in Content → Files. Video slot must be picked in the theme editor manually.
+- User uploaded product refs to Higgsfield via widget: media_ids 75a0202f-52fb-45bb-b2c8-99729150da8b, 9dda8c0a-3c93-4f63-bc1b-74a72bf6f6c4, b7ebb685-fd17-4c5c-9fef-5956e13cd01d (QIZHEN Snow Lotus Herbal Pads box, flow-wrap sachet, bare pad; sachet excluded from art per user).
+- Product-staged regenerations in flight: hero-with-box job dde79c90-ae1b-4083-bb60-61f511caf229 (16:9), ritual-with-pad job d72949e9-6fe8-43da-939a-dca793f971ef (3:2); video loop to be regenerated from the new hero frame after completion.
+- User's shpat token was shared in chat — remind them to rotate after deploy.
+
 ## Next Step
 User uploads the 4 Higgsfield assets to Shopify (theme editor → Hero image + Background video, Herbs image, Guarantee image), then uploads the theme zip via Online Store → Themes → Add theme → Upload zip file. If the user instead shares public URLs of their real product photos, feed them to Higgsfield via `media_import_url` as reference media and regenerate imagery featuring the actual product.
 
