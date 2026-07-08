@@ -21,5 +21,6 @@
 !.vscode/
 !.vscode/mcp.json
 
-# Handoff files (generated on wrap-up)
-!handoff.md
+# Handoff files (generated on wrap-up) — supports per-project naming
+# e.g. handoff.md, handoff-vae.md, "Trading handoff.md"
+!*[Hh]andoff*.md

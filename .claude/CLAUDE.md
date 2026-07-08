@@ -10,7 +10,9 @@ This syncs any changes made on another device before work begins.
 
 Before any /clear command, session end, or when the user says "wrap up" or "we're done":
 
-Write a handoff.md file in the project root with this exact structure:
+Check the project root for existing handoff files (`handoff.md`, `handoff-*.md`, etc.). If any exist, ask the user whether to update one of them or create a new one for this project — don't assume. Never silently overwrite a handoff file for a different project.
+
+Write the chosen handoff file with this exact structure:
 
 # Handoff
 
