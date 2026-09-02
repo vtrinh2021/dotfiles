@@ -9,7 +9,9 @@
       "Bash(grep -o '.\\\\{0,100\\\\}mcpServers.\\\\{0,100\\\\}' ~/.vscode/extensions/anthropic.claude-code-2.1.117-darwin-arm64/extension.js)",
       "Bash(grep -o '.\\\\{0,100\\\\}mcp_servers\\\\|mcpServer.\\\\{0,100\\\\}' ~/.vscode/extensions/anthropic.claude-code-2.1.117-darwin-arm64/extension.js)",
       "Bash(npm show *)",
-      "Bash(~/.vscode/extensions/anthropic.claude-code-2.1.117-darwin-arm64/resources/native-binary/claude mcp *)"
+      "Bash(~/.vscode/extensions/anthropic.claude-code-2.1.117-darwin-arm64/resources/native-binary/claude mcp *)",
+      "Bash(gh repo *)",
+      "Bash(gh search *)"
     ]
   },
   "hooks": {
