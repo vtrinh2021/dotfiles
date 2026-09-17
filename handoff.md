@@ -1,42 +1,36 @@
 # Handoff
 
 ## Goal
-Build a complete Shopify OS 2.0 theme ("Confidante") for vaewellness.com — evolved Herbalist's Confidante identity — with Higgsfield-generated hero imagery and video.
+Build and ship the **Westley & Co** scalp-care store (Calvris competitor, one hero product: Targeted Relief Cream) on store 3e69v2-8h.myshopify.com, executed via the /fable plan→execute→judge loop from the approved design in `westley-store/westley-home.html` / `westley-product.html`. This replaces every prior direction on this store — the VAÉ/Confidante herbal-pads era is dead and its theme deleted (owner decision: brand direction).
 
 ## Current State
-**Theme is complete and passes `shopify theme check` with 0 errors** (9 warnings, all standard Google Fonts CDN notices). Lives in `vae-theme/` on branch `claude/quirky-curie-pulm3m`; upload zip built from the 7 theme folders. Design system: deep mulberry drench `#571B3C` + apothecary gold `#C99A3A` + botanical green, Young Serif display + Alegreya Sans body (OKLCH tokens with hex fallbacks in `layout/theme.liquid`). Homepage narrative: hero (video-capable) → proof → featured individual products → herbs → how-it-works → guarantee → bundles (supporting offer) → CTA. All core templates done: product (variant picker, gallery), collection (sort + pagination), cart (no-JS-safe), blog/article (comments), search, 404, password, gift card, all 7 customer templates. WCAG 2.1 AA contrast; reduced-motion swaps hero video for the still.
-
-**Higgsfield assets generated** (in the user's Higgsfield library, account user_362HhfQJCpCROl1LyGGfIGLgfRR):
-- Hero still 16:9 2K — job `cd1d9a6d-be62-40d7-823f-0be59682c0a1`
-- Herb macro 4:5 2K — job `47e4740d-18a4-4298-a78e-b57bceb3b9b9`
-- Ritual/guarantee 3:2 2K — job `f6182bd3-4f3d-4076-8a80-6aec6d1e7505`
-- Hero video loop 6s 1080p (Kling 3.0 Turbo from the hero still) — job `2df9fb80-452a-4258-aa74-7408bf739786`
-
-PRODUCT.md and DESIGN.md written at repo root (register: brand; anti-refs: cutesy pastel femcare, beige spa; emotion: reassured/credible).
+**Everything built is deployed and browser-verified; nothing is mid-flight.**
+- Theme "Westley" (ID 165601738973, **unpublished**) — complete OS 2.0 theme, 62+ files. Preview: https://3e69v2-8h.myshopify.com/?preview_theme_id=165601738973
+- Products live: Targeted Relief Cream (3 bundle tiers $44/$69/$109, SKUs WC-TRC-1/2/4), Scalp & Beard Brush $15, Clarifying Bar Soap $22 + hidden "With cream" $14 bump variant (WC-SOAP-14). 7 AI-generated brand images across all three.
+- Discounts: free brush BXGY + free shipping ≥$60, both verified in real carts. Bump = real $14 variant (see What Failed).
+- Shipped on top of the base build, each verified by Playwright QA rounds (all passing): stop-slop copy pass, de-vibecode design pack (before/after drag slider gated on photos, editorial review styling, side-tab accent removed), whisper-level motion pack (CLS 0.0000, reduced-motion fully static), drawer/body overflow hygiene.
+- Launch blockers are all owner-side: domain still voltexbox.com / checkout branded "Vaé", Meta channel, Judge.me, Shopify Subscriptions (refill toggle hidden until plan ID set), consented before/after photos, six compliance-flagged copy lines awaiting accept/reject.
 
 ## Files Being Edited
-- `vae-theme/**` — the entire theme (64 files): layouts, 22 sections, 5 snippets, 19 templates, base.css, global.js, 3 SVG placeholder illustrations
-- `PRODUCT.md` — brand strategy (register, users, personality, anti-references, principles)
-- `DESIGN.md` — visual system (palette, type, components, motion)
-- `.gitignore` — whitelisted PRODUCT.md, DESIGN.md, vae-theme/**; ignored vae-theme/.impeccable/
-- `handoff.md` — this file
+- `C:\Users\Turtl\westley-store\westley-theme\**` — the entire theme (built from scratch, all passes applied)
+- `C:\Users\Turtl\westley-store\deploy-westley.ps1` — API deploy script (token from $env:SHOPIFY_TOKEN only)
+- `C:\Users\Turtl\westley-store\HANDOFF.md` — **the detailed build dossier**: full verification evidence, decisions, compliance flags, owner TODO list, A/B test, and the QUEUED restructure spec
+- `C:\Users\Turtl\westley-store\product-images\*` — generated product photography (approved copies)
+- `C:\Users\Turtl\westley-store\westley-home.html` / `westley-product.html` / `westley-vscode-handoff-prompt_2.md` — source of truth (copied from Downloads)
+- Memory files updated: westley-store-pivot (new), stellar-june-store (site now shows gemstone rings), fable-orchestration-protocol (new)
 
 ## What Failed
-- Container network policy blocks the Higgsfield CDN (`d8j0ntlcm91z4.cloudfront.net` → proxy 403), so generated media could NOT be bundled into theme assets. Worked around with on-palette SVG placeholder illustrations + image/video pickers on hero, herbs, and guarantee sections; user uploads the generated art via the theme editor.
-- Theme-check flagged conditional width/height on the hero img and `{{ email }}` on reset_password — both fixed.
-
-## Session 2 additions
-- Deploy is user-run: `deploy-confidante.ps1` at repo root (accepts shpat_ token directly or shpss_ client secret + client ID; creates/reuses unpublished "Confidante" theme, uploads in dependency order, prints preview URL + product image URLs).
-- Templates now hardwired to `shopify://shop_images/vae-hero.png`, `vae-herbs.png`, `vae-ritual.png` (index.json + product.json); SVG fallbacks show until files exist in Content → Files. Video slot must be picked in the theme editor manually.
-- User uploaded product refs to Higgsfield via widget: media_ids 75a0202f-52fb-45bb-b2c8-99729150da8b, 9dda8c0a-3c93-4f63-bc1b-74a72bf6f6c4, b7ebb685-fd17-4c5c-9fef-5956e13cd01d (QIZHEN Snow Lotus Herbal Pads box, flow-wrap sachet, bare pad; sachet excluded from art per user).
-- Product-staged regenerations in flight: hero-with-box job dde79c90-ae1b-4083-bb60-61f511caf229 (16:9), ritual-with-pad job d72949e9-6fe8-43da-939a-dca793f971ef (3:2); video loop to be regenerated from the new hero frame after completion.
-- User's shpat token was shared in chat — remind them to rotate after deploy.
+- **Shopify cannot stack two automatic BXGY discounts on one buy-item** (one cream can fund free brush OR $8-off soap, never both — proven empirically with real carts; every discount shape tried and documented). Fix: real $14 bump variant, theme adds it by SKU. Residual accepted risk: raw /cart/add.js can add the $14 variant without cream (~$8 exposure; theme UI can't reach it; blocking needs a checkout-validation app).
+- **Token 401s, twice** — the owner rotates the Admin API token frequently (correctly). Every 401 mid-deploy failed clean with no partial upload. Always ask for a fresh shpat_ token at session start; env-var only, never to disk, never in this file.
+- Calvris-branded jar images in Downloads were **rejected for store use** (competitor brand + drug claims — reference only). One brush render rejected for showing a different physical product; regenerated from the approved shot.
+- `/plugin` command unavailable in this environment (21st.dev skills installed via `npx @21st-dev/cli install-skill` instead). Shopify CLI can't authenticate here — all deploys via the Admin API script.
+- Session interruptions (process exit, rate limit) were recovered by resuming executor agents from transcripts — no work lost.
 
 ## Next Step
-User uploads the 4 Higgsfield assets to Shopify (theme editor → Hero image + Background video, Herbs image, Guarantee image), then uploads the theme zip via Online Store → Themes → Add theme → Upload zip file. If the user instead shares public URLs of their real product photos, feed them to Higgsfield via `media_import_url` as reference media and regenerate imagery featuring the actual product.
+**The queued Stellar June-style restructure** (owner request, deferred for usage limits): remodel the Westley homepage into stellarjune.com's catalog pattern **with an animated hero**. Full spec with the SJ reference breakdown and Westley mapping is in `westley-store/HANDOFF.md` under "QUEUED". Start by confirming with the owner: (1) hero animation type — cinemagraph video loop (recommended) vs slideshow, and (2) where the current DR homepage sections (pain cards, timeline, chips) land, since the restructure replaces the approved homepage. PDP ad-lander stays untouched.
 
 ## Context
-- Store: 3e69v2-8h.myshopify.com, new domain vaewellness.com — same herbal feminine wellness pads
-- User chose: "Evolve it" (brand), same store, editorial botanical photo imagery, KEEP bundles (individual products lead, bundles support — reverses the earlier "remove bundles" request)
-- Bundle products must be picked in the theme editor (vae-bundles blocks have product pickers, no products wired yet); featured-products section needs a collection picked
-- Old handoff context (voltexbox.com homepage rebuild, PowerShell upload pattern) is superseded by this theme-from-scratch approach
+- Store 3e69v2-8h.myshopify.com; primary domain currently **voltexbox.com** (Westley will need its own domain before publish). Live published theme is "VAÉ Dryer — Live" — not ours, don't touch.
+- Deploy: `$env:SHOPIFY_TOKEN = '<ask owner>'; powershell -File westley-store\deploy-westley.ps1` — reuses theme 165601738973, uploads all files, prints preview URL.
+- Estimated cost of the queued restructure: ~one large executor round + deploy + QA (similar to the motion+copy+design day); hero video loop ≈ tens of Higgsfield credits (balance ~3,900).
+- The `/fable` protocol memory and `westley-store-pivot` memory carry the working rules: orchestrator never implements, executors verify with observed behavior, escalate ambiguity, confirm which store before using any pasted token.
