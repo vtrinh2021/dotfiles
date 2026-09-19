@@ -24,3 +24,9 @@
 # Handoff files (generated on wrap-up) — supports per-project naming
 # e.g. handoff.md, handoff-vae.md, "Trading handoff.md"
 !*[Hh]andoff*.md
+
+# Westley & Co storefront (source only, no build output)
+!westley-co/
+!westley-co/**
+westley-co/node_modules/
+westley-co/dist/
